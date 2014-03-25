@@ -58,15 +58,14 @@ containing a value of this type.
     }
     public static final class id {
         public static final int action_settings=0x7f080004;
-        public static final int camera_preview=0x7f080000;
-        public static final int start_recording=0x7f080001;
-        public static final int stop_recording=0x7f080002;
-        public static final int top_layout=0x7f080003;
+        public static final int camera_preview=0x7f080001;
+        public static final int start_recording=0x7f080002;
+        public static final int stop_recording=0x7f080003;
+        public static final int top_layout=0x7f080000;
     }
     public static final class layout {
-        public static final int activity_take_phoeo=0x7f030000;
-        public static final int activity_take_photo=0x7f030001;
-        public static final int sample_camera_preview=0x7f030002;
+        public static final int activity_take_photo=0x7f030000;
+        public static final int sample_camera_preview=0x7f030001;
     }
     public static final class menu {
         public static final int take_phoeo=0x7f070000;

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.List;
 
 import android.content.Context;
+import android.graphics.BitmapFactory;
 import android.hardware.Camera;
 import android.hardware.Camera.Size;
 import android.util.AttributeSet;
@@ -158,17 +159,10 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
     
     /** Method that takes picture and displays preview on screen
      */
-    public void takePicture(){
-    	mCamera.takePicture(null, null, new Camera.PictureCallback() {
-			
-			@Override
-			public void onPictureTaken(byte[] data, Camera camera) {
-				// TODO Send intent to go to send image
-				
-			}
-		}, null);
-    	mCamera.release();
-    	mCamera = null;
+    public void takePicture(Camera.PictureCallback callback){
+    	mCamera.takePicture(null, null, null, callback);
+//    	mCamera.release();
+//    	mCamera = null;
     }
     
     /** Function returns whether mCamera has been successfully set
