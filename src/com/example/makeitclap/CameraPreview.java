@@ -1,5 +1,6 @@
 package com.example.makeitclap;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -17,7 +18,7 @@ import android.view.SurfaceView;
  */
 
 public class CameraPreview extends SurfaceView implements
-		SurfaceHolder.Callback {
+SurfaceHolder.Callback {
 	private SurfaceHolder mHolder;
 	private Camera mCamera;
 	Size pSize;
@@ -166,15 +167,16 @@ public class CameraPreview extends SurfaceView implements
 	/**
 	 * Method that takes picture and displays preview on screen
 	 */
-	public void takePicture() {
-		mCamera.takePicture(null, null, new Camera.PictureCallback() {
+	public void takePicture(File f) {
+		mCamera.takePicture(null, null, null, new Camera.PictureCallback() {
 
 			@Override
 			public void onPictureTaken(byte[] data, Camera camera) {
 				// TODO Send intent to go to send image
+				
 
 			}
-		}, null);
+		});
 		mCamera.release();
 		mCamera = null;
 	}
@@ -185,6 +187,7 @@ public class CameraPreview extends SurfaceView implements
 	 * 
 	 * @return - true if successful, otherwise false
 	 */
+	@SuppressWarnings("deprecation")
 	protected boolean connectCamera() {
 		try {
 
@@ -204,6 +207,6 @@ public class CameraPreview extends SurfaceView implements
 			return false;
 		}
 
-    	return true;
-    }
+		return true;
+	}
 }
