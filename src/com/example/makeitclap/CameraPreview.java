@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.util.List;
 
 import com.example.makeitclap.R;
-import com.example.makeitclap.R.string;
-
 import android.content.Context;
 import android.hardware.Camera;
 import android.hardware.Camera.Size;
@@ -17,6 +15,7 @@ import android.view.SurfaceView;
 /**
  * TODO: document your custom view class.
  */
+
 public class CameraPreview extends SurfaceView implements
 		SurfaceHolder.Callback {
 	private SurfaceHolder mHolder;
@@ -188,6 +187,7 @@ public class CameraPreview extends SurfaceView implements
 	 */
 	protected boolean connectCamera() {
 		try {
+
 			mCamera = Camera.open();
 
 			// Install a SurfaceHolder.Callback so we get notified when the
@@ -203,6 +203,7 @@ public class CameraPreview extends SurfaceView implements
 			e.printStackTrace();
 			return false;
 		}
-		return true;
-	}
+
+    	return true;
+    }
 }
