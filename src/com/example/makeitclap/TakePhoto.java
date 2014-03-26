@@ -87,6 +87,10 @@ public class TakePhoto extends Activity {
 					bmp.compress(Bitmap.CompressFormat.PNG, 100, fOut);
 					fOut.flush();
 					fOut.close();
+					
+					Intent photoIntent = new Intent(TakePhoto.this, SendPicture.class);
+					photoIntent.putExtra("path", image.getAbsolutePath());
+					startActivity(photoIntent);
 					// TODO Pass intent to new activity to send the photo or go back to camera
 				} catch (IOException e) {
 					e.printStackTrace();
@@ -103,7 +107,7 @@ public class TakePhoto extends Activity {
 				String fileName = "PNG_" + timeStamp + "_";
 				File storageDir = Environment.getExternalStoragePublicDirectory(
 						Environment.DIRECTORY_PICTURES);
-				File image = File.createTempFile(fileName, ".png", storageDir);
+				File image = File.createTempFile(fileName, ".jpg", storageDir);
 				return image;
 			}
 		};

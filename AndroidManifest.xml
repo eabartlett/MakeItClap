@@ -28,6 +28,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="com.example.makeitclap.SendPicture"
+            android:label="@string/title_activity_send_picture" >
+        </activity>
     </application>
 
 </manifest>
