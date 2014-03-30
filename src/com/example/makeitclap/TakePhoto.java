@@ -52,11 +52,11 @@ public class TakePhoto extends Activity implements AudioProcess.OnAudioEventList
 		runOnUiThread(new Runnable() {
 			@Override
 			public void run(){
-				if(pitchDetectionResult.getPitch() > 2400){
-//					Log.i("Pitch detected", "Frequency: " + String.valueOf(pitchDetectionResult.getPitch()));
-//					Log.i("Current sample number", String.valueOf(mSampleNumber));
+				if(pitchDetectionResult.getPitch() > LOW_FREQ){
+					Log.i("Pitch detected", "Frequency: " + String.valueOf(pitchDetectionResult.getPitch()));
+					Log.i("Current sample number", String.valueOf(mSampleNumber));
 					long dt = mSampleNumber - prevSampleNumber;
-					if (dt > 100 && dt < 500) {
+					if (dt > 5 && dt < 20) {
 						mAudioProcess.stop();
 						wasRecording = true;
 						savePhoto();
