@@ -5,6 +5,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -49,14 +53,23 @@ public class TakePhoto extends Activity implements AudioProcess.OnAudioEventList
 			 AudioEvent audioEvent) {
 		mSampleNumber++;
 		
-		runOnUiThread(new Runnable() {
+		Runnable task = new Runnable() {
 			@Override
 			public void run(){
-				if(pitchDetectionResult.getPitch() > LOW_FREQ){
+//				if (pitchDetectionResult.getPitch() != -1) {
+//					Log.i("Pitch detected",
+//							"Frequency: "
+//									+ String.valueOf(pitchDetectionResult
+//											.getPitch()));
+//					Log.i("Current sample number",
+//							String.valueOf(mSampleNumber));
+//				}
+				if(pitchDetectionResult.getPitch() > LOW_FREQ &&
+						pitchDetectionResult.getPitch() < HIGH_FREQ){
 					Log.i("Pitch detected", "Frequency: " + String.valueOf(pitchDetectionResult.getPitch()));
 					Log.i("Current sample number", String.valueOf(mSampleNumber));
 					long dt = mSampleNumber - prevSampleNumber;
-					if (dt > 5 && dt < 50) {
+					if (dt > LOW_INTERVAL && dt < HIGH_INTERVAL) {
 						mAudioProcess.stop();
 						wasRecording = true;
 						savePhoto();
@@ -107,7 +120,8 @@ public class TakePhoto extends Activity implements AudioProcess.OnAudioEventList
 				CameraPreview preview = (CameraPreview) findViewById(R.id.camera_preview);
 				preview.takePicture(callback);
 			}
-		});
+		};
+		worker.execute(task);
 	}
 
 	@Override
@@ -146,6 +160,8 @@ public class TakePhoto extends Activity implements AudioProcess.OnAudioEventList
 		view.setVisibility(View.INVISIBLE);
 		stopRec.setVisibility(View.VISIBLE);
 		mAudioProcess.listen();
+		mSampleNumber = 0;
+
 
 
 	}
@@ -162,13 +178,16 @@ public class TakePhoto extends Activity implements AudioProcess.OnAudioEventList
 	/* Constants used for audio processing */
 	private final static int SAMPLE_RATE = 16000;
 	private final static int LOW_FREQ = 2200;
-	private final static int HIGH_FREQ = 2800;
+	private final static int HIGH_FREQ = 3000;
+	private final static long HIGH_INTERVAL = 30;
+	private final static long LOW_INTERVAL = 2;
 
 	private PitchProcessor mPitchProcessor;
 	private AudioProcess mAudioProcess;
 	private boolean wasRecording = false;
 	private long mSampleNumber = 0;
 	private long prevSampleNumber = Integer.MIN_VALUE;
+	private static final ExecutorService worker = Executors.newSingleThreadExecutor();
 
 
 }
