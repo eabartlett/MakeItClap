@@ -56,7 +56,7 @@ public class TakePhoto extends Activity implements AudioProcess.OnAudioEventList
 					Log.i("Pitch detected", "Frequency: " + String.valueOf(pitchDetectionResult.getPitch()));
 					Log.i("Current sample number", String.valueOf(mSampleNumber));
 					long dt = mSampleNumber - prevSampleNumber;
-					if (dt > 5 && dt < 20) {
+					if (dt > 5 && dt < 50) {
 						mAudioProcess.stop();
 						wasRecording = true;
 						savePhoto();
